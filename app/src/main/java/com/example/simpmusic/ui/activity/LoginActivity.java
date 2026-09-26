@@ -14,6 +14,9 @@ import com.example.simpmusic.data.model.LoginRequest;
 import com.example.simpmusic.utils.AuthManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -85,12 +88,10 @@ public class LoginActivity extends AppCompatActivity {
                     String token = auth.getToken();
                     
                     if (token == null || token.isEmpty()) {
-                        Log.e(TAG, "Login success but token is null");
-                        Toast.makeText(LoginActivity.this, "Lỗi: Không nhận được mã truy cập từ máy chủ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Lỗi: Server không trả về Token", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    // Lưu dữ liệu vào AuthManager
                     AuthManager.getInstance(LoginActivity.this).saveAuthData(
                             token,
                             auth.getUserId(),
@@ -99,14 +100,12 @@ public class LoginActivity extends AppCompatActivity {
                             auth.getRole()
                     );
 
-                    // Reset Retrofit để đảm bảo các yêu cầu tiếp theo sử dụng token mới
                     RetrofitClient.reset();
-
                     Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                     setResult(RESULT_OK);
                     finish();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Email hoặc mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
+                    handleErrorResponse(response);
                 }
             }
 
@@ -114,8 +113,28 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<AuthResponse> call, Throwable t) {
                 btnLogin.setEnabled(true);
                 btnLogin.setText("ĐĂNG NHẬP");
-                Toast.makeText(LoginActivity.this, "Lỗi kết nối", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "Login Failure", t);
+                Toast.makeText(LoginActivity.this, "Lỗi kết nối máy chủ", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void handleErrorResponse(Response<AuthResponse> response) {
+        if (response.code() >= 500) {
+            Toast.makeText(this, "Lỗi hệ thống máy chủ (500). Kiểm tra Secret Key JWT!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        String message = "Email hoặc mật khẩu không chính xác";
+        try {
+            if (response.errorBody() != null) {
+                String errorBody = response.errorBody().string();
+                JSONObject jObjError = new JSONObject(errorBody);
+                if (jObjError.has("message")) {
+                    message = jObjError.getString("message");
+                }
+            }
+        } catch (Exception ignored) {}
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

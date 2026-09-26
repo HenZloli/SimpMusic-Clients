@@ -26,13 +26,18 @@ public class AuthManager {
     }
 
     public void saveAuthData(String token, int userId, String email, String username, String role) {
+        // Sử dụng commit() để lưu đồng bộ, đảm bảo Token có hiệu lực ngay lập tức
         prefs.edit()
                 .putString(KEY_TOKEN, token)
                 .putInt(KEY_USER_ID, userId)
                 .putString(KEY_EMAIL, email)
                 .putString(KEY_USERNAME, username)
                 .putString(KEY_ROLE, role)
-                .commit();
+                .commit(); 
+    }
+
+    public void setRole(String role) {
+        prefs.edit().putString(KEY_ROLE, role).commit();
     }
 
     public String getToken() { return prefs.getString(KEY_TOKEN, null); }

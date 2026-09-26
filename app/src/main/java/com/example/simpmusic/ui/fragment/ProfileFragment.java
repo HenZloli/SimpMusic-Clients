@@ -42,6 +42,7 @@ import com.example.simpmusic.ui.activity.MainActivity;
 import com.example.simpmusic.ui.activity.PlaylistDetailActivity;
 import com.example.simpmusic.ui.activity.AlbumDetailActivity;
 import com.example.simpmusic.ui.activity.PlayerActivity;
+import com.example.simpmusic.ui.activity.ArtistRegistrationActivity;
 import com.example.simpmusic.ui.adapter.AlbumAdapter;
 import com.example.simpmusic.ui.adapter.PlaylistAdapter;
 import com.example.simpmusic.ui.adapter.SongAdapter;
@@ -69,7 +70,7 @@ public class ProfileFragment extends Fragment implements
 
     private TextView tvProfileName, tvFollowersCount, tvFollowingCount;
     private ImageView ivProfileLarge;
-    private MaterialButton btnEditProfile;
+    private MaterialButton btnEditProfile, btnArtistAccount;
     private ImageButton btnBack, btnLogoutTop;
     private View btnManagePlaylists, profileRootLayout;
     
@@ -137,6 +138,7 @@ public class ProfileFragment extends Fragment implements
 
         ivProfileLarge = view.findViewById(R.id.ivProfileLarge);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
+        btnArtistAccount = view.findViewById(R.id.btnArtistAccount);
 
         btnBack = view.findViewById(R.id.btnBackProfile);
         btnLogoutTop = view.findViewById(R.id.btnLogoutTop);
@@ -180,6 +182,11 @@ public class ProfileFragment extends Fragment implements
 
         // Edit profile
         btnEditProfile.setOnClickListener(v -> handleEditAction());
+
+        // Artist Account Request
+        if (btnArtistAccount != null) {
+            btnArtistAccount.setOnClickListener(v -> startActivity(new Intent(getActivity(), ArtistRegistrationActivity.class)));
+        }
 
         // Back
         if (btnBack != null) {
@@ -407,11 +414,13 @@ public class ProfileFragment extends Fragment implements
             tvCreatedEmptyState.setVisibility(View.GONE);
             layoutArtistAlbums.setVisibility(View.VISIBLE);
             layoutArtistSongs.setVisibility(View.VISIBLE);
+            if (btnArtistAccount != null) btnArtistAccount.setVisibility(View.GONE);
             switchTab(true); // Default to My Works for Artists
             loadArtistProfile();
         } else {
             // For regular users, we might just hide the "My Works" tab entirely or show it as empty
             layoutProfileTabs.setVisibility(View.GONE); // Hide tabs for normal users, just show Library
+            if (btnArtistAccount != null) btnArtistAccount.setVisibility(View.VISIBLE);
             switchTab(false); // Default to Library/Saved for normal users
             loadUserProfile();
         }

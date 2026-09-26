@@ -101,7 +101,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Edit Button -->
+            <!-- Action Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,6 +117,23 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:text="Chỉnh sửa"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#22FFFFFF"
+                    app:strokeColor="#33FFFFFF"
+                    app:strokeWidth="1dp"
+                    app:cornerRadius="18dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnArtistAccount"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="12dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Tài khoản nghệ sĩ"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     android:textStyle="bold"
