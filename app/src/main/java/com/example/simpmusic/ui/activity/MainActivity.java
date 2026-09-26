@@ -1,7 +1,11 @@
 package com.example.simpmusic.ui.activity;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -61,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements PlaylistSelection
     private final Handler progressHandler = new Handler(Looper.getMainLooper());
     private int currentNavId = R.id.nav_home;
 
+    private ConnectivityManager connectivityManager;
+    private ConnectivityManager.NetworkCallback networkCallback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +81,45 @@ public class MainActivity extends AppCompatActivity implements PlaylistSelection
         if (savedInstanceState == null) {
             loadFragment(new HomeFragment(), true);
         }
+
+        setupNetworkMonitoring();
+    }
+
+    private void setupNetworkMonitoring() {
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        
+        // Kiểm tra ngay khi khởi động
+        if (!isConnected()) {
+            navigateToNoConnection();
+        }
+
+        networkCallback = new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onLost(@NonNull Network network) {
+                super.onLost(network);
+                runOnUiThread(() -> navigateToNoConnection());
+            }
+        };
+
+        if (connectivityManager != null) {
+            connectivityManager.registerDefaultNetworkCallback(networkCallback);
+        }
+    }
+
+    private boolean isConnected() {
+        if (connectivityManager == null) return false;
+        Network network = connectivityManager.getActiveNetwork();
+        if (network == null) return false;
+        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+        return capabilities != null && (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
+    }
+
+    private void navigateToNoConnection() {
+        Intent intent = new Intent(this, NoConnectionActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void initSharedViews() {
@@ -112,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements PlaylistSelection
                 int id = item.getItemId();
                 if (id == currentNavId) return true;
 
-                // Xử lý nút Tạo: Nếu chưa đăng nhập thì nhảy sang trang Login
                 if (id == R.id.nav_create) {
                     if (!AuthManager.getInstance(this).isLoggedIn()) {
                         startActivity(new Intent(this, LoginActivity.class));
@@ -123,7 +169,6 @@ public class MainActivity extends AppCompatActivity implements PlaylistSelection
                 }
 
                 boolean slideForward = true;
-                // Xác định hướng trượt PowerPoint
                 if (id == R.id.nav_home) slideForward = false;
                 else if (id == R.id.nav_search && currentNavId != R.id.nav_home) slideForward = false;
                 else if (id == R.id.nav_library && (currentNavId == R.id.nav_profile)) slideForward = false;
@@ -259,5 +304,14 @@ public class MainActivity extends AppCompatActivity implements PlaylistSelection
         currentPlayingSong = song;
     }
 
-    @Override protected void onStop() { super.onStop(); stopProgressUpdate(); if (controllerFuture != null) MediaController.releaseFuture(controllerFuture); }
+    @Override protected void onDestroy() {
+        super.onDestroy();
+        stopProgressUpdate();
+        if (controllerFuture != null) MediaController.releaseFuture(controllerFuture);
+        if (connectivityManager != null && networkCallback != null) {
+            try {
+                connectivityManager.unregisterNetworkCallback(networkCallback);
+            } catch (Exception ignored) {}
+        }
+    }
 }
