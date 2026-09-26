@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.example.simpmusic.ui.activity.LoginActivity;
 import com.example.simpmusic.utils.AuthManager;
@@ -23,6 +24,7 @@ public class RetrofitClient {
     private static Retrofit retrofit = null;
     private static Context appContext;
     private static boolean isRedirecting = false;
+    private static final String TAG = "RetrofitClient";
 
     public static void init(Context context) {
         if (appContext == null && context != null) {
@@ -31,6 +33,7 @@ public class RetrofitClient {
     }
 
     public static void reset() {
+        Log.d(TAG, "Resetting Retrofit instance...");
         retrofit = null;
         isRedirecting = false;
     }
@@ -55,26 +58,48 @@ public class RetrofitClient {
                     Request original = chain.request();
                     Request.Builder requestBuilder = original.newBuilder();
 
-                    String tokenSent = null;
+                    String path = original.url().encodedPath().toLowerCase();
+                    boolean isAuthApi = path.contains("/api/auth/");
+                    
+                    String token = "";
                     if (appContext != null) {
-                        tokenSent = AuthManager.getInstance(appContext).getToken();
-                        if (tokenSent != null && !tokenSent.isEmpty()) {
-                            requestBuilder.header("Authorization", "Bearer " + tokenSent);
+                        token = AuthManager.getInstance(appContext).getToken();
+                        if (!isAuthApi && token != null && !token.isEmpty()) {
+                            requestBuilder.header("Authorization", "Bearer " + token);
                         }
                     }
 
                     requestBuilder.header("Accept", "application/json");
                     Request request = requestBuilder.build();
+                    
+                    // Log request details for debugging
+                    Log.d(TAG, "--> " + request.method() + " " + request.url());
+                    if (request.header("Authorization") != null) {
+                        Log.d(TAG, "Authorization: Bearer " + (token.length() > 10 ? token.substring(0, 10) + "..." : token));
+                    }
+
                     Response response = chain.proceed(request);
+                    
+                    Log.d(TAG, "<-- " + response.code() + " " + request.url());
 
-                    String path = request.url().encodedPath();
-                    boolean isAuthApi = path.contains("/api/Auth/");
-
-                    if (response.code() == 401 && !isAuthApi && appContext != null && !isRedirecting) {
-                        String currentToken = AuthManager.getInstance(appContext).getToken();
-                        if (currentToken != null && !currentToken.isEmpty()) {
-                            isRedirecting = true;
-                            handleUnauthorized();
+                    // Xử lý 401 Unauthorized
+                    if (response.code() == 401 && !isAuthApi && appContext != null) {
+                        synchronized (RetrofitClient.class) {
+                            if (!isRedirecting) {
+                                String currentToken = AuthManager.getInstance(appContext).getToken();
+                                String requestAuthHeader = request.header("Authorization");
+                                
+                                // Chỉ xử lý nếu request này được gửi với Token hiện tại
+                                if (currentToken != null && !currentToken.isEmpty() && 
+                                    ("Bearer " + currentToken).equals(requestAuthHeader)) {
+                                    
+                                    Log.e(TAG, "Received 401 for a valid-looking token. Redirecting...");
+                                    isRedirecting = true;
+                                    handleUnauthorized();
+                                } else {
+                                    Log.w(TAG, "Received 401 but token was already changed or empty. Ignoring redirect.");
+                                }
+                            }
                         }
                     }
 
@@ -94,9 +119,11 @@ public class RetrofitClient {
     private static void handleUnauthorized() {
         if (appContext == null) return;
         
+        // Xóa dữ liệu ngay lập tức
+        AuthManager.getInstance(appContext).clear();
+
         new Handler(Looper.getMainLooper()).post(() -> {
-            AuthManager.getInstance(appContext).clear();
-            reset();
+            Log.e(TAG, "Session Expired. Clearing data and redirecting to LoginActivity");
             Intent intent = new Intent(appContext, LoginActivity.class);
             intent.putExtra("SESSION_EXPIRED", true);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

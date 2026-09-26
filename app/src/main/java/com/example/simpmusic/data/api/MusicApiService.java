@@ -3,7 +3,9 @@ package com.example.simpmusic.data.api;
 import com.example.simpmusic.data.model.AddSongRequest;
 import com.example.simpmusic.data.model.Album;
 import com.example.simpmusic.data.model.Artist;
+import com.example.simpmusic.data.model.ArtistAccountRequest;
 import com.example.simpmusic.data.model.AuthResponse;
+import com.example.simpmusic.data.model.CreateArtistRequest;
 import com.example.simpmusic.data.model.LoginRequest;
 import com.example.simpmusic.data.model.Notification;
 import com.example.simpmusic.data.model.Playlist;
@@ -160,4 +162,11 @@ public interface MusicApiService {
 
     @PUT("api/Notifications/read-all")
     Call<ApiResponse> markAllAsRead();
+
+    // --- ARTIST ACCOUNT REQUEST ENDPOINTS ---
+    @GET("api/ArtistAccountRequest/my-request")
+    Call<ArtistAccountRequest> getMyArtistRequest();
+
+    @POST("api/ArtistAccountRequest")
+    Call<ArtistAccountRequest> createArtistRequest(@Body CreateArtistRequest request);
 }

@@ -87,6 +87,10 @@
             android:exported="false"
             android:theme="@style/Theme.SimpMusic.NoActionBar"/>
 
+        <activity android:name=".ui.activity.ArtistRegistrationActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SimpMusic.NoActionBar"/>
+
         <activity android:name=".ui.activity.PremiumActivity"
             android:exported="false"
             android:theme="@style/Theme.SimpMusic.NoActionBar"/>
