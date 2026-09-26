@@ -1,0 +1,88 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.SimpMusic" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/spotify_green</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="android:windowBackground">@color/app_background</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/spotify_light_grey</item>
+        <item name="colorSurface">@color/spotify_card_grey</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="editTextColor">@color/white</item>
+
+        <!-- Hiệu ứng chuyển màn hình mặc định -->
+        <item name="android:windowAnimationStyle">@style/Theme.SimpMusic.ActivityAnimation</item>
+
+        <!-- Style cho BottomSheet -->
+        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+
+        <!-- Style cho AlertDialog -->
+        <item name="alertDialogTheme">@style/SpotifyAlertDialogTheme</item>
+    </style>
+
+    <!-- Hiệu ứng trượt ngang Parallax (chuẩn Spotify) -->
+    <style name="Theme.SimpMusic.ActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <!-- Theme riêng cho Player (Trượt từ dưới lên) -->
+    <style name="Theme.SimpMusic.Player" parent="Theme.SimpMusic.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/Theme.SimpMusic.PlayerAnimation</item>
+    </style>
+
+    <style name="Theme.SimpMusic.PlayerAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_up</item>
+        <item name="android:activityOpenExitAnimation">@android:anim/fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_down</item>
+    </style>
+
+    <!-- Style cho SearchView trên nền trắng -->
+    <style name="Theme.SimpMusic.Search" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:editTextColor">@color/black</item>
+        <item name="android:textColorHint">@color/spotify_light_grey</item>
+        <item name="colorControlNormal">@color/spotify_light_grey</item>
+        <item name="colorControlActivated">@color/spotify_green</item>
+    </style>
+
+    <!-- Spotify Styled BottomSheet -->
+    <style name="CustomBottomSheetDialog" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/spotify_black</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <!-- Spotify Styled AlertDialog -->
+    <style name="SpotifyAlertDialogTheme" parent="Theme.Material3.Dark.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="colorSurface">@color/spotify_card_grey</item>
+        <item name="colorSurfaceVariant">@color/spotify_dark_grey</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/spotify_light_grey</item>
+        <item name="colorPrimary">@color/spotify_green</item>
+        <item name="shapeAppearanceLargeComponent">@style/SpotifyRoundedCorner</item>
+        <item name="buttonBarPositiveButtonStyle">@style/SpotifyAlertButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/SpotifyAlertButton</item>
+    </style>
+
+    <style name="SpotifyRoundedCorner" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <style name="SpotifyAlertButton" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/spotify_green</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Theme.SimpMusic" parent="Base.Theme.SimpMusic" />
+    <style name="Theme.SimpMusic.NoActionBar" parent="Base.Theme.SimpMusic" />
+</resources>

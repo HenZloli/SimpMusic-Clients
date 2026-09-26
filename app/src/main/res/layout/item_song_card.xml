@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="16dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardElevation="0dp"
+    app:rippleColor="#20FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/songCover"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.SmallComponent"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/songTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="Tên bài hát rất dài để kiểm tra tính năng xuống dòng của giao diện" />
+
+        <LinearLayout
+            android:id="@+id/artistContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivArtistIcon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.LargeComponent"
+                android:src="@drawable/ic_person"
+                app:tint="@color/spotify_light_grey" />
+
+            <TextView
+                android:id="@+id/songArtist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/spotify_light_grey"
+                android:textSize="12sp"
+                tools:text="Nghệ sĩ có tên dài cũng sẽ được xuống dòng" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/spotify_black">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="@color/spotify_black"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:statusBarScrim="@android:color/transparent"
+            app:titleEnabled="false">
+
+            <ImageView
+                android:id="@+id/ivArtistAvatarLarge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7"
+                tools:src="@tools:sample/avatars" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient_overlay" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/abc_ic_ab_back_material"
+                app:navigationIconTint="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:padding="20dp"
+                app:layout_collapseMode="parallax">
+
+                <TextView
+                    android:id="@+id/tvArtistNameDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="4"
+                    android:textColor="@color/white"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="-0.02"
+                    tools:text="Artist Name" />
+
+                <TextView
+                    android:id="@+id/tvArtistBioDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/spotify_light_grey"
+                    android:textSize="14sp"
+                    tools:text="Thông tin tiểu sử nghệ sĩ sẽ xuất hiện ở đây..." />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnFollowArtist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Theo dõi"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/spotify_dark_grey"
+                        app:cornerRadius="20dp"
+                        app:strokeColor="@color/white"
+                        app:strokeWidth="1dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="100dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:descendantFocusability="blocksDescendants">
+
+            <!-- Bài hát nổi bật -->
+            <TextView
+                android:id="@+id/tvSongsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="12dp"
+                android:text="Bài hát phổ biến"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvArtistSongs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_song" />
+
+            <!-- Album của nghệ sĩ -->
+            <TextView
+                android:id="@+id/tvAlbumsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp"
+                android:text="Album"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvArtistAlbums"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                tools:listitem="@layout/item_album_card" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

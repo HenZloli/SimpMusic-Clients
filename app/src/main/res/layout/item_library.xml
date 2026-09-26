@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="8dp">
+
+    <FrameLayout
+        android:layout_width="64dp"
+        android:layout_height="64dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivLibraryCover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.SmallComponent"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/layoutPlaylistCoverGrid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnCount="2"
+                android:rowCount="2">
+
+                <ImageView
+                    android:id="@+id/ivGrid1"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/ivGrid2"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/ivGrid3"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/ivGrid4"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:scaleType="centerCrop" />
+            </GridLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvLibraryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Tên Playlist hoặc Album có độ dài lớn sẽ tự động xuống dòng" />
+
+        <TextView
+            android:id="@+id/tvLibrarySubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/spotify_light_grey"
+            android:textSize="14sp"
+            tools:text="Playlist • SimpMusic" />
+    </LinearLayout>
+
+</LinearLayout>

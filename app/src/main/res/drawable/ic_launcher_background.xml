@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="108"
+                android:endY="108"
+                android:startX="0"
+                android:startY="0"
+                android:type="linear">
+                <item android:color="#FF1A1A1C" android:offset="0.0" />
+                <item android:color="#FF000000" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Các đường nét tinh tế tạo cảm giác công nghệ -->
+    <path
+        android:fillColor="#0DFFFFFF"
+        android:pathData="M108,0L0,108L0,100L100,0Z" />
+    <path
+        android:fillColor="#05FFFFFF"
+        android:pathData="M0,0L108,108L108,90L18,0Z" />
+</vector>

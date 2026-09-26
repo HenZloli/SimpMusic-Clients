@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profileRootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/spotify_black">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
+
+            <!-- Top Header Actions -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingHorizontal="8dp">
+                <ImageButton
+                    android:id="@+id/btnBackProfile"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/white" />
+                <ImageButton
+                    android:id="@+id/btnLogoutTop"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_lock_power_off"
+                    app:tint="#FF5252" />
+            </RelativeLayout>
+
+            <!-- Profile Info -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="24dp"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivProfileLarge"
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_person"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.LargeComponent" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvProfileName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-black"
+                        android:textColor="@color/white"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        tools:text="User Name" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/tvFollowersCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/spotify_light_grey"
+                            android:textSize="13sp"
+                            android:text="0 người theo dõi" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" • "
+                            android:textColor="@color/spotify_light_grey" />
+                        <TextView
+                            android:id="@+id/tvFollowingCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/spotify_light_grey"
+                            android:textSize="13sp"
+                            android:text="Đang theo dõi 0" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Edit Button -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="24dp"
+                android:layout_marginTop="16dp">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEditProfile"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="Chỉnh sửa"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#22FFFFFF"
+                    app:strokeColor="#33FFFFFF"
+                    app:strokeWidth="1dp"
+                    app:cornerRadius="18dp" />
+            </LinearLayout>
+
+            <!-- 2 Tabs Menu Header -->
+            <LinearLayout
+                android:id="@+id/layoutProfileTabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="24dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:id="@+id/tabCreatedContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tác phẩm của tôi"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:alpha="1.0"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingEnd="24dp"
+                    android:paddingVertical="8dp" />
+
+                <TextView
+                    android:id="@+id/tabSavedContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đã lưu &amp; Thư viện"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:alpha="0.5"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingVertical="8dp" />
+            </LinearLayout>
+
+            <!-- CONTAINER 1: TÁC PHẨM CỦA TÔI (CHỈ HIỂN THỊ KHI LÀ NGHỆ SĨ & CHỌN TAB 1) -->
+            <LinearLayout
+                android:id="@+id/containerCreatedContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <!-- Artist Section: Albums -->
+                <LinearLayout
+                    android:id="@+id/layoutArtistAlbums"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="24dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="12dp"
+                        android:text="Album của bạn"
+                        android:textColor="@color/spotify_light_grey"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvArtistAlbums"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:paddingHorizontal="12dp"
+                        tools:listitem="@layout/item_album_card" />
+                </LinearLayout>
+
+                <!-- Artist Section: Songs -->
+                <LinearLayout
+                    android:id="@+id/layoutArtistSongs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="24dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="12dp"
+                        android:text="Nhạc của bạn"
+                        android:textColor="@color/spotify_light_grey"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvArtistSongs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:paddingHorizontal="12dp"
+                        tools:listitem="@layout/item_song" />
+                </LinearLayout>
+
+                <!-- Fallback empty state text if standard user opens this tab -->
+                <TextView
+                    android:id="@+id/tvCreatedEmptyState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bạn chưa đăng tải tác phẩm nào."
+                    android:textColor="@color/spotify_light_grey"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    android:paddingVertical="40dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- CONTAINER 2: ĐÃ LƯU & THƯ VIỆN (MẶC ĐỊNH HIỂN THỊ HOẶC KHI CHỌN TAB 2) -->
+            <LinearLayout
+                android:id="@+id/containerSavedContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <!-- Playlists Section -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Danh sách phát"
+                        android:textColor="@color/spotify_light_grey"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <LinearLayout
+                        android:id="@+id/btnManagePlaylists"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:background="?attr/selectableItemBackground"
+                        android:padding="4dp">
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:src="@android:drawable/ic_menu_edit"
+                            app:tint="@color/white" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:text="Quản lý"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvMyPlaylists"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingHorizontal="12dp"
+                    tools:listitem="@layout/item_library" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/spotify_black">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:elevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="48dp"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Tìm kiếm"
+                    android:textColor="@color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp">
+
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/searchView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:theme="@style/Theme.SimpMusic.Search"
+                        app:iconifiedByDefault="false"
+                        app:queryBackground="@android:color/transparent"
+                        app:queryHint="Bạn muốn nghe gì?"
+                        app:searchIcon="@drawable/ic_search" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="120dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llInitialView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="12dp"
+                        android:fontFamily="sans-serif-bold"
+                        android:text="Duyệt tìm tất cả"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:alignmentMode="alignMargins"
+                        android:columnCount="2"
+                        android:paddingHorizontal="10dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="6dp"
+                            app:cardBackgroundColor="#E8115B"
+                            app:cardCornerRadius="8dp"
+                            app:strokeWidth="0dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="12dp"
+                                android:text="Pop"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="6dp"
+                            app:cardBackgroundColor="#148A08"
+                            app:cardCornerRadius="8dp"
+                            app:strokeWidth="0dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="12dp"
+                                android:text="Rock"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </com.google.android.material.card.MaterialCardView>
+                    </GridLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llTrending"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="12dp"
+                            android:text="Bài hát thịnh hành"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvTrending"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false"
+                            tools:listitem="@layout/item_song" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSearchResults"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="gone"
+                    tools:listitem="@layout/item_song" />
+
+                <ProgressBar
+                    android:id="@+id/pbLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:indeterminateTint="@color/spotify_green"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/llNoResults"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="64dp"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Không tìm thấy bài hát nào"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

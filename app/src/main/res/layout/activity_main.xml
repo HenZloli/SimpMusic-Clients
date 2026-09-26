@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/spotify_black"
+    tools:context=".ui.activity.MainActivity">
+
+    <!-- Vùng chứa các Fragment: Trang chủ, Tìm kiếm, Thư viện -->
+    <FrameLayout
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation" />
+
+    <!-- Mini Player: Nằm đè lên vùng chứa nội dung nhưng trên BottomNavigation -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/miniPlayerCard"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="#222222"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:strokeWidth="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/miniPlayerCover"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.SmallComponent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/miniPlayerAdd"
+                app:layout_constraintStart_toEndOf="@id/miniPlayerCover"
+                app:layout_constraintTop_toTopOf="parent">
+                <TextView
+                    android:id="@+id/miniPlayerTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/miniPlayerArtist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/spotify_light_grey"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/miniPlayerAdd"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="4dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/miniPlayerPlayPause"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/miniPlayerPlayPause"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_media_play"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+
+            <ProgressBar
+                android:id="@+id/miniPlayerProgress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:progressDrawable="@drawable/progress_bar_spotify"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Bottom Navigation: Cố định ở dưới cùng -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E6000000"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
