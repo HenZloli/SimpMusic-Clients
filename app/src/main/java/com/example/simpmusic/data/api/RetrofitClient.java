@@ -20,7 +20,8 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class RetrofitClient {
-    public static final String BASE_URL = "http://10.0.2.2:5081/";
+//    public static final String BASE_URL = "http://10.0.2.2:5081/";
+    public static final String BASE_URL = "https://hepatitis-julia-voting-solutions.trycloudflare.com/";
     private static Retrofit retrofit = null;
     private static Context appContext;
     private static boolean isRedirecting = false;
